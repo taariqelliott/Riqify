@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import NavButtons from "./NavButtons";
+import "../App.css";
 
 function SongUploadForm({ onSongUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [songName, setSongName] = useState('');
-  const [artistName, setArtistName] = useState('');
+  const [songName, setSongName] = useState("");
+  const [artistName, setArtistName] = useState("");
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -27,19 +29,22 @@ function SongUploadForm({ onSongUpload }) {
     }
 
     const formData = new FormData();
-    formData.append('song', selectedFile);
-    formData.append('name', songName);
-    formData.append('artist', artistName);
+    formData.append("song", selectedFile);
+    formData.append("name", songName);
+    formData.append("artist", artistName);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload-song', formData);
+      const response = await axios.post(
+        "http://localhost:5000/upload-song",
+        formData
+      );
       console.log(response.data);
       // Call the onSongUpload callback to update the song list
       onSongUpload();
       // Reset form fields or show a success message
       setSelectedFile(null);
-      setSongName('');
-      setArtistName('');
+      setSongName("");
+      setArtistName("");
     } catch (error) {
       console.error(error);
       // Handle error or show an error message
@@ -47,12 +52,30 @@ function SongUploadForm({ onSongUpload }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" onChange={handleFileChange} />
-      <input type="text" placeholder="Song Name" value={songName} onChange={handleSongNameChange} />
-      <input type="text" placeholder="Artist Name" value={artistName} onChange={handleArtistNameChange} />
-      <button type="submit">Upload Song</button>
+    <div>
+      <h1 className="uploadTitle">Upload Song</h1>
+      <form onSubmit={handleSubmit} className="song-upload-form">
+      <input type="file" onChange={handleFileChange} className="file-input" />
+      <input
+        type="text"
+        placeholder="Song Name"
+        value={songName}
+        onChange={handleSongNameChange}
+        className="input-field"
+      />
+      <input
+        type="text"
+        placeholder="Artist Name"
+        value={artistName}
+        onChange={handleArtistNameChange}
+        className="input-field"
+      />
+      <button type="submit" className="upload-button">
+        Upload Song
+      </button>
     </form>
+    <NavButtons />
+    </div>
   );
 }
 

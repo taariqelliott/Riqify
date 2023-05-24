@@ -1,0 +1,142 @@
+
+.title {
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.songListParent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.songListChild {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controlButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 3px;
+}
+
+.buttonSpace {
+    padding: 3px;
+}
+
+.controlStyle {
+    padding: 3px;
+    background-color: black;
+    color: #ff7136;
+    border-radius: 10px;
+}
+
+.song-upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-input {
+    margin-bottom: 10px;
+}
+
+.input-field {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+.upload-button {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+}
+
+.upload-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.home {
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.uploadTitle {
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.homeImage {
+    border-radius: 100%;
+    max-height: 500px;
+    align-items: center;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+    
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navButtons {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    padding: 15px 0;
+}
+
+.navButtons .navButton a {
+    color: #ff7136;
+    text-decoration: none;
+    margin: 10px 5px;
+    /* Adjust the margin as needed */
+}
+
+.navButtons .navButton a:visited {
+    color: #ff7136;
+}
+
+.navButtons .navButton a:active {
+    color: #ff7136;
+}
+
+.navButtons .navButton {
+    background-color: black;
+    margin: 3px;
+    border-radius: 10px;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: rgb(0, 131, 175);
+    background: linear-gradient(0deg, rgba(0, 131, 175, 1) 0%, #ff7136 100%);
+  }
