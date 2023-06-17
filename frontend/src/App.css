@@ -74,11 +74,24 @@
 }
 
 .home {
-    color: white;
     font-size: 50px;
     text-align: center;
     margin-top: 20px;
+    animation: colorCycle 13s infinite;
 }
+
+@keyframes colorCycle {
+    0% {
+        color: white;
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: white;
+    }
+}
+
 
 .uploadTitle {
     color: white;
