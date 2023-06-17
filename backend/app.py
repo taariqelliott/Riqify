@@ -90,6 +90,36 @@ def get_songs():
     songs_list = fetch_songs()
     return jsonify(songs_list)
 
+@app.route('/songs/<int:song_id>', methods=['DELETE'])
+def delete_song(song_id):
+    # Retrieve the song information from the database
+    select_query = '''
+    SELECT filename FROM songs WHERE id = %s;
+    '''
+    cursor.execute(select_query, (song_id,))
+    song = cursor.fetchone()
+
+    if song:
+        filename = song[0]
+
+        # Delete the song from the songs table
+        delete_query = '''
+        DELETE FROM songs WHERE id = %s;
+        '''
+        cursor.execute(delete_query, (song_id,))
+        conn.commit()
+
+        # Remove the song file from the songs directory
+        song_path = os.path.join(SONGS_DIR, filename)
+        if os.path.exists(song_path):
+            os.remove(song_path)
+
+        songs_list = fetch_songs()
+
+        return jsonify({'message': 'Song deleted successfully', 'songs': songs_list})
+    else:
+        return jsonify({'message': 'Song not found'})
+
 @app.route('/songs/<path:filename>', methods=['GET'])
 def serve_song(filename):
     return send_from_directory(SONGS_DIR, filename)

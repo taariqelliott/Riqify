@@ -1,6 +1,7 @@
 import React from "react";
 import NavButtons from "./NavButtons";
 
+
 const Home = () => {
   return (
     <div>

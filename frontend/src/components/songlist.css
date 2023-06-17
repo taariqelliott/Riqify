@@ -1,0 +1,29 @@
+
+.songDeets{
+  display: flex;
+  flex-direction: row;
+  color: blue;
+  margin: 3px;
+}
+
+.delete {
+  width: 20px;
+  height: 20px;
+  align-self: center;
+  display: flex;
+  margin: 3px;
+  align-items: center;
+  justify-content: center;
+}
+
+.songsBox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+
+.parent{
+  right: 0px;
+}

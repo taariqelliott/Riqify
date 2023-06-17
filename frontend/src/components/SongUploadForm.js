@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import NavButtons from "./NavButtons";
 import "../App.css";
 
@@ -7,6 +8,7 @@ function SongUploadForm({ onSongUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -45,6 +47,8 @@ function SongUploadForm({ onSongUpload }) {
       setSelectedFile(null);
       setSongName("");
       setArtistName("");
+      // Redirect to "/play"
+      navigate("/play");
     } catch (error) {
       console.error(error);
       // Handle error or show an error message
@@ -55,26 +59,26 @@ function SongUploadForm({ onSongUpload }) {
     <div>
       <h1 className="uploadTitle">Upload Song</h1>
       <form onSubmit={handleSubmit} className="song-upload-form">
-      <input type="file" onChange={handleFileChange} className="file-input" />
-      <input
-        type="text"
-        placeholder="Song Name"
-        value={songName}
-        onChange={handleSongNameChange}
-        className="input-field"
-      />
-      <input
-        type="text"
-        placeholder="Artist Name"
-        value={artistName}
-        onChange={handleArtistNameChange}
-        className="input-field"
-      />
-      <button type="submit" className="upload-button">
-        Upload Song
-      </button>
-    </form>
-    <NavButtons />
+        <input type="file" onChange={handleFileChange} className="file-input" />
+        <input
+          type="text"
+          placeholder="Song Name"
+          value={songName}
+          onChange={handleSongNameChange}
+          className="input-field"
+        />
+        <input
+          type="text"
+          placeholder="Artist Name"
+          value={artistName}
+          onChange={handleArtistNameChange}
+          className="input-field"
+        />
+        <button type="submit" className="upload-button">
+          Upload Song
+        </button>
+      </form>
+      <NavButtons />
     </div>
   );
 }
