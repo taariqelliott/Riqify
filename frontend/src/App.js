@@ -4,6 +4,7 @@ import SongList from "./components/SongList";
 import SongUploadForm from "./components/SongUploadForm";
 import Home from "./components/Home";
 import "./App.css";
+import Artist from "./components/Artist";
 
 function App() {
   const [songListUpdated, setSongListUpdated] = useState(false);
@@ -39,6 +40,7 @@ function App() {
             element={<SongUploadForm onSongUpload={handleSongUpload} />}
           />
           <Route path="/play" element={<SongList />} />
+          <Route path="/artist" element={<Artist />} />
         </Routes>
       </div>
     </Router>

@@ -5,7 +5,7 @@ import NavButtons from "./NavButtons";
 const Home = () => {
   return (
     <div>
-      <h1 className="home">Home</h1>
+      <h1 className="home">RIQIFY</h1>
       <div className="image-container">
         <img
           src="https://f4.bcbits.com/img/0024637118_10.jpg"

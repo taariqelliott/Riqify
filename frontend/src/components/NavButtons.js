@@ -12,6 +12,9 @@ const NavButtons = () => {
       <button className="navButton">
         <a href="/play">Music Player</a>
       </button>
+      <button className="navButton">
+        <a href="/artist">Artist</a>
+      </button>
     </div>
   );
 };

@@ -9,6 +9,8 @@ const SongList = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioElementRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [updatedName, setUpdatedName] = useState("");
+  const [updatedArtist, setUpdatedArtist] = useState("");
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -42,8 +44,6 @@ const SongList = () => {
       }
     }
   }, [isPlaying]);
-
- 
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -81,19 +81,49 @@ const SongList = () => {
     }
   };
 
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    const updatedData = {
+      name: updatedName,
+      artist: updatedArtist,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:5000/songs/${currentSong.songId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+      const data = await response.json();
+      setSongs(data.songs);
+    } catch (error) {
+      console.error("Error updating song:", error);
+    }
+
+    setUpdatedName("");
+    setUpdatedArtist("");
+  };
 
   const currentSong = songs[currentSongIndex];
   const songFilename = currentSong ? currentSong.filename : "";
 
   return (
     <div className="songListParent">
-      
-      {isLoading ? (<p>Loading...</p>) : (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
         <div className="songListChild">
           <h1 className="player">Player</h1>
-          <audio ref={audioElementRef} src={`http://localhost:5000/songs/${songFilename}`} controls autoPlay={isPlaying} className="player"/>
-          {currentSong ? (<p className="songInfo">Now playing: {currentSong.name} - {currentSong.artist}</p>) : (<p>No song available</p>)}
-          
+          <audio ref={audioElementRef} src={`http://localhost:5000/songs/${songFilename}`} controls autoPlay={isPlaying} className="player" />
+          {currentSong ? (
+            <p className="songInfo">Now playing: {currentSong.name} - {currentSong.artist}</p>
+          ) : (
+            <p>No song available</p>
+          )}
+
           <div className="controlButtons">
             <button className="controlStyle" onClick={handlePlay}>
               Play
@@ -110,19 +140,38 @@ const SongList = () => {
             <button className="controlStyle" onClick={handlePrevious}>
               Previous
             </button>
-            <Playlist/>
+            <Playlist />
           </div>
-          
+
           {songs.map((song) => (
             <div key={song.songId}>
-                <div className="songsBox">
-                  <h3>playlist</h3>
+              <div className="songsBox">
+                <h3>playlist</h3>
                 <p className="songDeets">{song.name} by {song.artist}</p>
                 <button className="delete" onClick={() => handleDelete(song.songId)}>X</button>
-                </div>
+              </div>
             </div>
-          ))} 
-          
+          ))}
+
+          {currentSong && (
+            <div className="updateForm">
+              <h3>Update Song Details</h3>
+              <form onSubmit={handleUpdate}>
+                <label>
+                  Name:
+                  <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                  Artist:
+                  <input type="text" value={updatedArtist} onChange={(e) => setUpdatedArtist(e.target.value)} />
+                </label>
+                <br />
+                <button type="submit">Update</button>
+              </form>
+            </div>
+          )}
+
           <NavButtons />
         </div>
       )}

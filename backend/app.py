@@ -120,6 +120,32 @@ def delete_song(song_id):
     else:
         return jsonify({'message': 'Song not found'})
 
+@app.route('/songs/<int:song_id>', methods=['PATCH'])
+def update_song(song_id):
+    # Retrieve the updated song information
+    update_data = request.get_json()
+    updated_fields = update_data.keys()
+
+    if 'name' in updated_fields:
+        name = update_data['name']
+        update_query = '''
+        UPDATE songs SET name = %s WHERE id = %s;
+        '''
+        cursor.execute(update_query, (name, song_id))
+
+    if 'artist' in updated_fields:
+        artist = update_data['artist']
+        update_query = '''
+        UPDATE songs SET artist = %s WHERE id = %s;
+        '''
+        cursor.execute(update_query, (artist, song_id))
+
+    conn.commit()
+
+    songs_list = fetch_songs()
+
+    return jsonify({'message': 'Song updated successfully', 'songs': songs_list})
+
 @app.route('/songs/<path:filename>', methods=['GET'])
 def serve_song(filename):
     return send_from_directory(SONGS_DIR, filename)
